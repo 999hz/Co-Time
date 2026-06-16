@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm p-4 border-0 bg-white rounded-4">
+            <h2 class="fw-bold text-dark mb-3">Contacto</h2>
+            <p class="text-muted small mb-4">Escríbenos tu duda y el administrador la revisará a la brevedad.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary fw-bold">Enviar Mensaje</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

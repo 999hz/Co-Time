@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<div class="p-5 mb-4 bg-white border rounded-3 shadow-sm text-center">
+  <h1 class="display-4 fw-bold text-primary">Bienvenido a Co-Time</h1>
+  <p class="lead">Gestión inteligente de espacios para Coworking</p>
+
+  <div class="alert alert-info d-inline-block my-3">
+    🚀 <strong>Estado actual:</strong> Hay {{ total_hoy }} reservas programadas
+    para hoy.
+  </div>
+
+  <hr class="my-4" />
+  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+    <a href="{% url 'reservas:index' %}" class="btn btn-primary btn-lg px-4"
+      >Ver Mis Reservas</a
+    >
+    <a
+      href="{% url 'reservas:crear' %}"
+      class="btn btn-outline-secondary btn-lg px-4"
+      >Nueva Reserva</a
+    >
+  </div>
+</div>
+{% endblock %}

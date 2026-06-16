@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 p-4">
+            <h2 class="fw-bold text-center mb-4 text-primary">Modificar Reserva</h2>
+            <div class="alert alert-warning py-2 text-center">
+                Estás editando la reserva en: <strong>{{ reserva.espacio.nombre }}</strong>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-primary fw-bold">Actualizar Datos</button>
+                    <a href="{% url 'reservas:index' %}" class="btn btn-light border">Volver atrás</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %} 
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="fw-bold">Mis Reservas</h1>
+  <a href="{% url 'reservas:crear' %}" class="btn btn-primary btn-login fw-bold px-4">+ Nueva Reserva</a>
+</div>
+
+<div class="list-group shadow-sm">
+  {% for r in reservas %}
+  <div class="list-group-item d-flex justify-content-between align-items-center p-3">
+    <div>
+      <strong class="text-primary fs-5">{{ r.espacio.nombre }}</strong><br />
+      <small class="text-muted">
+        📅 {{ r.fecha|date:"d/m/Y" }} — 🕒 {{ r.hora|time:"H:i" }}
+      </small>
+    </div>
+    <div class="btn-group">
+      <!-- BOTÓN DE EDITAR -->
+      <a href="{% url 'reservas:editar' r.id %}" class="btn btn-sm btn-outline-primary px-3">
+        Editar
+      </a>
+      <!-- BOTÓN DE CANCELAR -->
+      <a href="{% url 'reservas:eliminar' r.id %}" class="btn btn-sm btn-outline-danger px-3">
+        Cancelar
+      </a>
+    </div>
+  </div>
+  {% empty %}
+  <div class="alert alert-light text-center p-4 border">No tienes reservas activas.</div>
+  {% endfor %}
+</div>
+{% endblock %}

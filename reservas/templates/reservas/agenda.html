@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm p-4 border-0 bg-white rounded-4">
+    <h2 class="fw-bold text-dark text-center mb-2">📅 Ocupación de Espacios</h2>
+    <p class="text-muted text-center small mb-4">Haz clic en cualquier día del calendario para agendar una nueva reserva directamente en esa fecha.</p>
+    
+    <div id="calendar"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'es', // Lo configuramos en español
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek'
+      },
+      
+      // Conectamos el calendario con la URL de Django que creamos en el paso 1
+      events: "{% url 'reservas:api_eventos' %}",
+      
+      // REQUERIMIENTO: Agregar reserva haciendo clic en el día
+      dateClick: function(info) {
+         // Al hacer clic, viaja al formulario común pasándole la fecha en la URL (ej: ?fecha=2026-05-15)
+         window.location.href = "{% url 'reservas:crear' %}?fecha=" + info.dateStr;
+      }
+    });
+    
+    calendar.render();
+  });
+</script>
+
+<style>
+  /* Un poco de estilo limpio para que se adapte a tu diseño */
+  .fc { max-width: 100%; font-family: sans-serif; }
+  .fc-toolbar-title { font-weight: bold; text-transform: capitalize; font-size: 1.3rem !important; }
+  .fc-button-primary { background-color: #0d6efd !important; border-color: #0d6efd !important; }
+  .fc-button-primary:hover { background-color: #0b5ed7 !important; }
+</style>
+{% endblock %}
